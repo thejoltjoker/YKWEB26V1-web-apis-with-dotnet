@@ -17,29 +17,33 @@ app.UseHttpsRedirection();
 // Data
 List<Course> courses =
 [
-    new("1", "C# 101", "Learn C#"),
-    new("2", ".NET 101", "Learn .NET")
+    new("C1", "C# 101", "Learn C#"),
+    new("C2", ".NET 101", "Learn .NET")
 ];
 
 List<Student> students =
 [
-    new("1",
+    new("S1",
         "John Doe",
         "john.doe@example.com"),
-    new("2",
+    new("S2",
         "Jane Doe",
         "jane.doe@example.com"),
-    new("3",
+    new("S3",
         "Sarah Doe",
         "Sarah.doe@example.com")
 ];
 
 List<CourseInstance> courseInstances =
 [
-    new("1", new DateTime(2026, 01, 01), new DateTime(2026, 03, 31), courses[0], students),
-    new("2", new DateTime(2026, 02, 01), new DateTime(2026, 04, 30), courses[1], students.Slice(0, 1))
+    new("CI1", new DateTime(2026, 01, 01), new DateTime(2026, 03, 31), courses[0], students),
+    new("CI2", new DateTime(2026, 02, 01), new DateTime(2026, 04, 30), courses[1], students.Slice(0, 1))
 ];
 
+List<Grade> grades =
+[
+    new(1, "A", courseInstances[0], students[0])
+];
 
 // TODO Skapa en ny endpoint som returnerar alla kurser mellan två givna datum
 
@@ -50,7 +54,7 @@ app.MapGet("/students/{id}", (string id) =>
 });
 app.MapGet("/students/{id}/courses", (string id) =>
 {
-    var student = courseInstances.FindAll(ci => ci.students.Any(s => s.Id.Equals(id)));
+    var student = courseInstances.FindAll(ci => ci.Students.Any(s => s.Id.Equals(id)));
     return student;
 });
 app.MapGet("/students", () => students);
@@ -61,5 +65,6 @@ app.MapGet("/courses/{id}", (string id) =>
     return course;
 });
 app.MapGet("/course-instances", () => courseInstances);
+app.MapGet("/grades", () => grades);
 
 app.Run();
