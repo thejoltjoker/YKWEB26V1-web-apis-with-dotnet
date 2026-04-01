@@ -75,7 +75,9 @@ app.MapPost("/students", (CreateStudentRequest request) =>
 {
     try
     {
-        if (request.Name == null || request.Email == null) return Results.BadRequest("Name and email are required");
+        if (string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.Email))
+            return Results.BadRequest("Name and email are required.");
+
         Student newStudent = new(request.Name, request.Email);
         students.Add(newStudent);
         return Results.Created($"/students/{newStudent.Id}", newStudent);
