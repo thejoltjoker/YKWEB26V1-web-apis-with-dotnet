@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
-/.idea.SchoolApi.iml
+/.idea.MySchoolWebApi.iml
 /contentModel.xml
 /projectSettingsUpdater.xml
 /modules.xml
