@@ -46,9 +46,9 @@ Skapa en klass `CourseInstance` med egenskaper:
 Poängen med denna klass är att innehålla information om vilka studenter som går på vilka kurser. Vi jobbar vidare med lite fler datatyper för att träna på dem.
 
 - [x] Skapa en lista med kurstillfällen i `Program.cs` (ni börjar se att det blir mycket data i `Program.cs` nu - detta är ett problem som vi ska lösa senare).
-- [ ] Skapa en endpoint som returnerar listan med kurstillfällen.
-- [ ] Extrauppgift: Skapa en endpoint som returnerar alla kurser som en given student går på.
-- [ ] Extrauppgift: Skapa en endpoint som returnerar alla kurser mellan två givna datum.
+- [x] Skapa en endpoint som returnerar listan med kurstillfällen.
+- [x] Extrauppgift: Skapa en endpoint som returnerar alla kurser som en given student går på.
+- [x] Extrauppgift: Skapa en endpoint som returnerar alla kurser mellan två givna datum.
 
 ---
 
@@ -65,9 +65,9 @@ Viktigt: `Grade` tillhör både en student och ett kurstillfälle, inte studente
 
 Poängen med denna klass är att innehålla en beskrivning av våra betyg. Ni kan välja vilka värden på betyg som ni själva vill.
 
-- [ ] Skapa en lista med grade-objekt i `Program.cs`.
-- [ ] Skapa en endpoint som returnerar betygobjekten.
-- [ ] Skapa egna endpoints, t.ex. en som visar alla betyg för en student och vilka kurser betygen gäller.
+- [x] Skapa en lista med grade-objekt i `Program.cs`.
+- [x] Skapa en endpoint som returnerar betygobjekten.
+- [x] Skapa egna endpoints, t.ex. en som visar alla betyg för en student och vilka kurser betygen gäller.
 
 ---
 
