@@ -1,4 +1,4 @@
-namespace SchoolApi.Models.Requests;
+namespace MySchoolWebApi.Models.Requests;
 
 public struct UpdateStudentRequest
 {
