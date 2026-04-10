@@ -86,79 +86,20 @@ app.MapControllers();
 // });
 
 
-app.MapGet(("/courses/{id}"), (string id) =>
-{
-    try
-    {
-        Course? course = courses.FirstOrDefault(s => s.Id == id);
-        if (course == null) return Results.NotFound($"Course {id} not found");
-        return Results.Ok(course);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-        return Results.InternalServerError();
-    }
-});
-app.MapPost(("/courses"), (CreateCourseRequest request) =>
-{
-    if (string.IsNullOrWhiteSpace(request.Title) || string.IsNullOrWhiteSpace(request.Description))
-        return Results.BadRequest("All fields are required");
-    try
-    {
-        Course newCourse = new(request.Title, request.Description);
-        courses.Add(newCourse);
-        return Results.Created($"/courses/{newCourse.Id}", newCourse);
-    }
-    catch (Exception e)
-    {
-        return Results.InternalServerError(e);
-    }
-});
-app.MapPut(("/courses/{id}"), (string id, UpdateCourseRequest request) =>
-{
-    try
-    {
-        Course? result = courses.FirstOrDefault(c => c.Id == id);
-        if (result == null) return Results.NotFound($"Course {id} not found");
-        if (!string.IsNullOrWhiteSpace(request.Title)) result.Title = request.Title;
-        if (!string.IsNullOrWhiteSpace(request.Description)) result.Description = request.Description;
-        return Results.Ok();
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-        return Results.InternalServerError();
-    }
-});
-app.MapDelete(("/courses/{id}"), (string id) =>
-{
-    try
-    {
-        Course? course = courses.FirstOrDefault(c => c.Id == id);
-        if (course == null) return Results.NotFound();
-        courses.Remove(course);
-        return Results.NoContent();
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-        return Results.InternalServerError();
-    }
-});
-app.MapGet(("/courses/{id}/instances"), (string id) =>
-{
-    try
-    {
-        List<CourseInstance> result = courseInstances.FindAll(ci => ci.CourseId == id);
-        return Results.Ok(result);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-        return Results.InternalServerError();
-    }
-});
+
+// app.MapGet(("/courses/{id}/instances"), (string id) =>
+// {
+//     try
+//     {
+//         List<CourseInstance> result = courseInstances.FindAll(ci => ci.CourseId == id);
+//         return Results.Ok(result);
+//     }
+//     catch (Exception e)
+//     {
+//         Console.WriteLine(e);
+//         return Results.InternalServerError();
+//     }
+// });
 
 app.MapGet(("/courseinstances"), (DateTime? startDate, DateTime? endDate) =>
 {
