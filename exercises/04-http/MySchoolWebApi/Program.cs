@@ -100,7 +100,7 @@ app.MapPut(("/students/{id}"), (string id, UpdateStudentRequest request) =>
         if (!string.IsNullOrWhiteSpace(request.Email)) student.Email = request.Email;
         if (!string.IsNullOrWhiteSpace(request.Name)) student.Name = request.Name;
 
-        return Results.NoContent();
+        return Results.Ok();
     }
     catch (Exception e)
     {
@@ -233,7 +233,7 @@ app.MapPut(("/courses/{id}"), (string id, UpdateCourseRequest request) =>
         if (result == null) return Results.NotFound($"Course {id} not found");
         if (!string.IsNullOrWhiteSpace(request.Title)) result.Title = request.Title;
         if (!string.IsNullOrWhiteSpace(request.Description)) result.Description = request.Description;
-        return Results.NoContent();
+        return Results.Ok();
     }
     catch (Exception e)
     {
@@ -379,7 +379,7 @@ app.MapPut(("/courseinstances/{id}"), (string id, UpdateCourseInstanceRequest re
         if (request.CourseId != null) result.CourseId = request.CourseId;
         if (request.Students != null) result.Students = request.Students;
         
-        return Results.NoContent();
+        return Results.Ok();
     }
     catch (Exception e)
     {
