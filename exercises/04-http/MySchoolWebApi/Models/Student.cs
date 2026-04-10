@@ -1,4 +1,4 @@
-namespace SchoolApi.Models;
+namespace MySchoolWebApi.Models;
 
 public class Student(string name, string email)
 {
