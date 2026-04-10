@@ -5,17 +5,17 @@ I dessa övningar vill jag att ni använder er av en hårdkodad lista med studen
 ## Övning 1 – Skapa en egen controller
 
 - [x] Skapa en ny controller `StudentController` (om du inte redan har en).
-- [ ] Lägg till endpointen `GET /students` som returnerar en lista av hårdkodade studenter.
-- [ ] Lägg till endpointen `GET /students/{id}` som returnerar en student baserat på id.
-  - [ ] Om ingen student finns: returnera `404 Not Found`.
+- [x] Lägg till endpointen `GET /students` som returnerar en lista av hårdkodade studenter.
+- [x] Lägg till endpointen `GET /students/{id}` som returnerar en student baserat på id.
+  - [x] Om ingen student finns: returnera `404 Not Found`.
 
 ## Övning 2 – CRUD i controllern
 
-- [ ] Lägg till följande endpoints i `StudentController`:
-  - [ ] `POST /students` – Skapa en ny student.
-  - [ ] `PUT /students/{id}` – Uppdatera en student.
-  - [ ] `DELETE /students/{id}` – Ta bort en student.
-- [ ] Testa varje endpoint i Postman.
+- [x] Lägg till följande endpoints i `StudentController`:
+  - [x] `POST /students` – Skapa en ny student.
+  - [x] `PUT /students/{id}` – Uppdatera en student.
+  - [x] `DELETE /students/{id}` – Ta bort en student.
+- [x] Testa varje endpoint i Postman.
 
 ## Övning 3 – Bygg fler controllers
 

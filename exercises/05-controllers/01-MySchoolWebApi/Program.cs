@@ -21,10 +21,6 @@ if (app.Environment.IsDevelopment())
 List<Student> students =
 [
     new("John Doe", "john.doe@example.com"),
-    new("Jane Smith", "jane.smith@example.com"),
-    new("Alice Johnson", "alice.johnson@example.com"),
-    new("Bob Lee", "bob.lee@example.com"),
-    new("Maria Svensson", "maria.svensson@example.com")
 ];
 
 List<Course> courses =
@@ -39,36 +35,36 @@ List<Course> courses =
 
 List<CourseInstance> courseInstances =
 [
-    new(new DateTime(2026, 01, 01), new DateTime(2026, 03, 31), courses[0].Id, [students[0].Id, students[1].Id]),
-    new(new DateTime(2026, 02, 01), new DateTime(2026, 04, 30), courses[1].Id,
-        [students[0].Id, students[1].Id, students[2].Id]),
-    new(new DateTime(2026, 03, 01), new DateTime(2026, 05, 31), courses[2].Id, [students[2].Id, students[3].Id]),
-    new(new DateTime(2026, 04, 01), new DateTime(2026, 06, 30), courses[3].Id,
-        [students[0].Id, students[3].Id, students[4].Id]),
-    new(new DateTime(2026, 05, 01), new DateTime(2026, 07, 31), courses[4].Id, [students[4].Id])
+    new(new DateTime(2026, 01, 01), new DateTime(2026, 03, 31), courses[0].Id, [students[0].Id]),
+    // new(new DateTime(2026, 02, 01), new DateTime(2026, 04, 30), courses[1].Id,
+    //     [students[0].Id, students[1].Id, students[2].Id]),
+    // new(new DateTime(2026, 03, 01), new DateTime(2026, 05, 31), courses[2].Id, [students[2].Id, students[3].Id]),
+    // new(new DateTime(2026, 04, 01), new DateTime(2026, 06, 30), courses[3].Id,
+    //     [students[0].Id, students[3].Id, students[4].Id]),
+    // new(new DateTime(2026, 05, 01), new DateTime(2026, 07, 31), courses[4].Id, [students[4].Id])
 ];
 
 List<Grade> grades =
 [
     new("A", courseInstances[0].Id, students[0].Id),
-    new("B", courseInstances[0].Id, students[1].Id),
-
-
-    new("B", courseInstances[1].Id, students[0].Id),
-    new("A", courseInstances[1].Id, students[1].Id),
-    new("C", courseInstances[1].Id, students[2].Id),
-
-
-    new("B", courseInstances[2].Id, students[2].Id),
-    new("A", courseInstances[2].Id, students[3].Id),
-
-
-    new("D", courseInstances[3].Id, students[0].Id),
-    new("C", courseInstances[3].Id, students[3].Id),
-    new("B", courseInstances[3].Id, students[4].Id),
-
-
-    new("A", courseInstances[4].Id, students[4].Id)
+    // new("B", courseInstances[0].Id, students[1].Id),
+    //
+    //
+    // new("B", courseInstances[1].Id, students[0].Id),
+    // new("A", courseInstances[1].Id, students[1].Id),
+    // new("C", courseInstances[1].Id, students[2].Id),
+    //
+    //
+    // new("B", courseInstances[2].Id, students[2].Id),
+    // new("A", courseInstances[2].Id, students[3].Id),
+    //
+    //
+    // new("D", courseInstances[3].Id, students[0].Id),
+    // new("C", courseInstances[3].Id, students[3].Id),
+    // new("B", courseInstances[3].Id, students[4].Id),
+    //
+    //
+    // new("A", courseInstances[4].Id, students[4].Id)
 ];
 
 
@@ -76,119 +72,20 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-app.MapPost(("/students"), (CreateStudentRequest request) =>
-{
-    if (string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.Email))
-        return Results.BadRequest("All fields are required");
-
-    try
-    {
-        Student student = new(request.Name, request.Email);
-        students.Add(student);
-        return Results.Created($"/students/{student.Id}", student);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-        return Results.InternalServerError();
-    }
-});
-app.MapPut(("/students/{id}"), (string id, UpdateStudentRequest request) =>
-{
-    if (string.IsNullOrWhiteSpace(request.Name) && string.IsNullOrWhiteSpace(request.Email))
-        return Results.BadRequest("No changes made");
-
-    try
-    {
-        var student = students.FirstOrDefault(x => x.Id == id);
-
-        if (student == null) return Results.NotFound("Student not found");
-        if (!string.IsNullOrWhiteSpace(request.Email)) student.Email = request.Email;
-        if (!string.IsNullOrWhiteSpace(request.Name)) student.Name = request.Name;
-
-        return Results.Ok();
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-        return Results.InternalServerError();
-    }
-});
+// app.MapGet(("/students/{id}/courses"), (string id) =>
+// {
+//     Student? student = students.FirstOrDefault(s => s.Id == id);
+//     if (student == null) return [];
+//     return courseInstances.FindAll(ci => ci.Students.Contains(student.Id));
+// });
+// app.MapGet(("/students/{id}/grades"), (string id) =>
+// {
+//     Student? student = students.FirstOrDefault(s => s.Id == id);
+//     if (student == null) return null;
+//     return grades.FindAll(g => g.StudentId == student.Id);
+// });
 
 
-app.MapDelete(("/students/{id}"), (string id) =>
-{
-    try
-    {
-        Student? student = students.FirstOrDefault(s => s.Id == id);
-        if (student == null) return Results.NotFound();
-        students.Remove(student);
-        return Results.NoContent();
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-        return Results.InternalServerError();
-    }
-});
-app.MapGet(("/students/{id}/courses"), (string id) =>
-{
-    Student? student = students.FirstOrDefault(s => s.Id == id);
-    if (student == null) return [];
-    return courseInstances.FindAll(ci => ci.Students.Contains(student.Id));
-});
-app.MapGet(("/students/{id}/grades"), (string id) =>
-{
-    Student? student = students.FirstOrDefault(s => s.Id == id);
-    if (student == null) return null;
-    return grades.FindAll(g => g.StudentId == student.Id);
-});
-
-app.MapGet(("/courses"), (DateTime? startDate, DateTime? endDate) =>
-{
-    try
-    {
-        List<CourseInstance> filteredCourseInstances = [];
-        foreach (CourseInstance courseInstance in courseInstances)
-        {
-            if (startDate != null && endDate != null)
-            {
-                if (courseInstance.StartDate <= endDate && courseInstance.EndDate >= startDate)
-                {
-                    filteredCourseInstances.Add(courseInstance);
-                }
-            }
-            else if (startDate != null)
-            {
-                if (courseInstance.EndDate >= startDate)
-                {
-                    filteredCourseInstances.Add(courseInstance);
-                }
-            }
-            else if (endDate != null)
-            {
-                if (courseInstance.StartDate <= endDate)
-                {
-                    filteredCourseInstances.Add(courseInstance);
-                }
-            }
-            else
-            {
-                filteredCourseInstances.Add(courseInstance);
-            }
-        }
-
-
-        var courseIds = filteredCourseInstances.Select(ci => ci.CourseId).Distinct();
-        List<Course> filteredCourses = courses.Where(c => courseIds.Contains(c.Id)).ToList();
-        return Results.Ok(filteredCourses);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-        return Results.InternalServerError();
-    }
-});
 app.MapGet(("/courses/{id}"), (string id) =>
 {
     try
