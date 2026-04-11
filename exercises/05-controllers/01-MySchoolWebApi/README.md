@@ -19,8 +19,8 @@ I dessa övningar vill jag att ni använder er av en hårdkodad lista med studen
 
 ## Övning 3 – Bygg fler controllers
 
-- [ ] Skapa `CourseController` och `CourseInstanceController`.
-- [ ] Implementera minst en GET-metod i vardera controller för att returnera hårdkodad data.
+- [x] Skapa `CourseController` och `CourseInstanceController`.
+- [x] Implementera minst en GET-metod i vardera controller för att returnera hårdkodad data.
 - [ ] Testa alla tre controllers i Postman.
 
 Poängen här är att se att controllers fungerar som bryggor mellan HTTP och kod.
