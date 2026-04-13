@@ -29,6 +29,6 @@
 
 ### Övning 6 – Applicera samma sak på Course och CourseInstance
 
-- [ ] Skapa `CourseService` och `CourseInstanceService`.
-- [ ] Flytta logik från respektive controller till sina services.
-- [ ] Registrera services i `Program.cs`.
+- [x] Skapa `CourseService` och `CourseInstanceService`.
+- [x] Flytta logik från respektive controller till sina services.
+- [x] Registrera services i `Program.cs`.
